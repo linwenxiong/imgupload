@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>dobss</title>
+	
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/css.css">
+</head>
+<body>
+
+
+<!-- 图片剧中遮罩 -->
+<!-- <transition name="fadeshow">
+	<div class="wide_dialog_shade">
+		<img class="wide_dialog_close" src="./img/close.png">
+	</div>
+</transition>
+<transition name="fadeshow">
+    <div class="wide_dialog_img_wrappy">
+        <img src="https://s3-us-west-2.amazonaws.com/dbosschat/YnUxJkW7MVTbWV0GbQnRD-m1.png">
+    </div>
+</transition> -->
+<!-- 图片剧中遮罩 end-->
+
+
+
+
+
+<!-- 弹出层内容遮罩  -->
+<!-- <transition name="fadeshow">
+    <div class="wide_dialog_shade">
+        <img class="wide_dialog_close" src="./img/close.png">
+    </div>
+</transition>
+<transition name="fadeshow">
+	<div class="wide_dialog_wrappy">
+		 我是内容
+	</div>
+</transition> -->
+<!-- 弹出层内容遮罩 end-->
+
+<h1 style="font-size: 20px; ">即时通讯</h1>
+
+
+
+<button>数据链接中</button>
+
+
+
+<button onclick="wide_loding_hide()">45546456</button>
+
+<audio id="audio" src=""   autoplay="autoplay" loop="loop" ></audio>
+
+<!-- <div class="wide_dialog_shade" style="background: rgba(0,0,0,0.5);"></div> -->
+<div class="wide_dialog_A">
+    333
+</div>
+
+<!-- <article class="wide_loding">
+    <span class="cicle">
+        <span class="left"><span class="rotate"></span></span>
+        <span class="right"><span class="rotate"></span></span>
+    </span>
+</article> -->
+
+
+
+<script type="text/javascript" src="/jquery.min.js"></script>
+<script type="text/javascript" src="/vue.js"></script>
+<script type="text/javascript" src="/socket.io.js"></script>
+
+<script type="text/javascript">
+function ajax_post(url, params, cb) {
+    wide_loding();
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: params,
+        // data: JSON.stringify(params),
+        dataType: 'json',
+        // contentType: 'application/json;charset=utf-8',
+        success: function (data) {
+            wide_loding_hide();
+            var status = data.status
+            switch (status) {
+                case 400:
+                    
+                    break
+                case 401:
+                    // lo(data.msg)
+                    break
+                case 0:
+                    alert(data.msg)
+                    break
+                case 1:
+                    cb(data);
+                    break
+                case 201:
+                    cb(data);
+                    break
+                default:
+                    // layer.closeAll('loading');
+                    // alert("网络请求错误，请稍后重试");
+                    break
+            }
+        },
+        error: function (err) {
+            wide_loding_hide();
+            // alert("网络请求错误，请稍后重试");
+        }
+    });
+}
+
+//打开loding
+function wide_loding()
+{
+    var elemDiv = document.createElement('div');
+    elemDiv.id = "loding_dialog";
+    var loding ='\
+        <div class="wide_dialog_shade" style="background: rgba(0,0,0,0.2);"></div>\
+        <article class="wide_loding">\
+            <span class="cicle">\
+                <span class="left"><span class="rotate"></span></span>\
+                <span class="right"><span class="rotate"></span></span>\
+            </span>\
+        </article>';
+    elemDiv.innerHTML = loding;
+    document.body.appendChild(elemDiv);
+}
+// 关闭遮罩
+function wide_loding_hide()
+{
+    var dialog = document.getElementById("loding_dialog");
+    dialog.parentNode.removeChild(dialog);
+}
+
+
+// =========================
+var bool = true;
+function test(){
+   var str = "http://www.w3school.com.cn/i/song.ogg";
+   var str2 = "https://pic.ibaotu.com/00/19/94/01y888piCTvW.mp3";
+   bool = !bool;
+   if(bool){
+    $("#audio").attr('src',str2); 
+   }else{
+    $("#audio").attr('src',str);
+   }
+}
+
+// var audio_elem = document.createElement('audio');
+// audio_elem.src = "http://www.w3school.com.cn/i/song.ogg";
+// audio_elem.autoplay = "autoplay";
+// audio_elem.loop = "loop";
+// document.body.appendChild(audio_elem);
+
+
+
+var socket = io('http://www.hash.com/chat',{path: '/chat', query:{'userid': 5566, 'token' : 'helloWord'}});
+    console.log(socket);
+    socket.emit('random',"你好");
+
+
+
+
+var arr= ['a','b','a'];
+// arr.some(function(val,index){
+//     if(val == 'a'){
+//         console.log(val);
+//         return val
+//     }
+// });
+
+
+// arr.forEach(function(val,index){
+//     console.log(val);
+// });
+
+ // console.log(  arr.every(function(val,index){  console.log(val,index); return val == 'a'  }) ); 
+
+ var a =  arr.every(function(val,index){ 
+    return val == 'a' 
+  })
+  console.log(a);
+</script>
+</body>
+</html>

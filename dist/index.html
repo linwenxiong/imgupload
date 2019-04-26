@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>dobss</title>
+	<script type="text/javascript" src="/jquery.min.js"></script>
+</head>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+		line-height: 1;
+	}
+	.fan_box{
+		display: inline-block;
+		
+		width: 100px;
+		height: 100px;
+		margin-right: 10px;
+	}
+	.fan_boxAdd{
+		background: url(../img/camera.png);
+		background-size: 100% 100%;
+	}
+	.fan_box img{
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+	.fan_box .filebox{
+		display: block;
+		height: 100%;
+		width: 100%;
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+</style>
+<body>
+
+    <input type="file" name="imgfile" multiple id="file" accept="image/gif, image/jpeg, image/jpg, image/png"
+    onchange="uploadChange(this)">
+    <input type="submit" value="提交">
+    <a href="javascript:" onclick="upload()">上传</a>
+
+    <!-- <form action="uploadimg" method="POST" enctype="multipart/form-data"></form> -->
+
+<h2 style="font-weight: normal;padding: 10px;" id="sd0.55564">上传凭证</h2>
+<!-- <div class="fan_box"><img src="../img/camera.png"></div> -->
+
+
+<div id="fileBox">
+	<!-- <div class="fan_box ">
+		<label class="filebox" style="background-image: url(../img/camera.png);">
+			<input name="uploadFile"  type="file" multiple accept="image/gif, image/jpeg, image/jpg, image/png" style="display: none;" onchange="uploadChange(this)">
+		</label>
+	</div> -->
+
+	<div class="fan_box ">
+		<label class="filebox" style="background-image: url(../img/camera.png);">
+			<input name="uploadFile" type="file" multiple accept="image/gif, image/jpeg, image/jpg, image/png" style="display: none;">
+		</label>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+
+function uploadChange(fid)
+{
+	var obj = document.getElementsByName('uploadFile'+fid)[0];
+	var file = obj.files[0];
+ 	if (file.size > 2097152) {
+ 		alert("图片不能大于2M！");
+        return;
+    }
+    upload_fn(obj,function(data){
+		 var parenNode =  obj.parentNode;
+		parenNode.style.backgroundImage="url(./uploads/"+data[0].filename+")"
+	});
+}
+
+document.getElementsByName('uploadFile')[0].onchange = function()
+{
+	
+	var file = this.files[0];
+ 	if (file.size > 2097152) {
+ 		alert("图片不能大于2M！");
+        return;
+    }
+	upload_fn(this,function(data){
+		uploadSuccessOperation(data[0].filename);
+	});
+
+}
+
+
+
+
+// 如果用的是图片的base64码来做操作
+function base64fn(){
+    var f = new FileReader();
+    f.readAsDataURL(file);
+	f.onload = function()
+	{	 
+		var str = '<div class="fan_box thumBox">'+
+				'<label class="filebox" style="background-image: url('+f.result+');">'+
+					'<input name="uploadFile'+fid+'"  type="file" multiple accept="image/gif, image/jpeg, image/jpg, image/png" style="display: none;" onchange="uploadChange('+fid+')">'+
+				'</label>'+
+			  '</div>';
+
+	    var len = $(".thumBox").length;
+		if( len == 0 )
+		{
+			$("#fileBox").prepend(str);
+		}
+		else
+		{
+		 	$(".thumBox").eq(len-1).after(str);
+		}
+	}
+}
+
+
+
+
+
+// 上传成功后的操作
+function uploadSuccessOperation(url)
+{	var fid = Math.random().toFixed(3);
+	var str = '<div class="fan_box thumBox">'+
+			'<label class="filebox" style="background-image: url(./uploads/'+url+');">'+
+				'<input name="uploadFile'+fid+'"  type="file" multiple accept="image/gif, image/jpeg, image/jpg, image/png" style="display: none;" onchange="uploadChange('+fid+')">'+
+			'</label>'+
+		  '</div>';
+
+    var len = $(".thumBox").length;
+	if( len == 0 )
+	{
+		$("#fileBox").prepend(str);
+	}
+	else
+	{
+	 	$(".thumBox").eq(len-1).after(str);
+	}
+}
+
+
+
+
+function upload()
+{
+	var fileinput = document.getElementById('file')
+	var files = fileinput.files
+	var formdata = new FormData();
+
+	for (let i = 0; i < files.length; i++) 
+	{
+		console.log(files.length);
+        formdata.append('imgfile', files[i], files[i].name)
+    }
+	$.ajax({
+		url:'uploadimg',
+		data:formdata,
+		type:'post',
+		cache: false,
+        contentType: false, //用from不可缺参数
+        processData: false, //用from不可缺参数
+		success:function(data){
+			console.log(data);
+		}
+	});
+}
+
+
+
+
+function upload_fn(objs,cb)
+{
+	var fileinput = objs;
+	var files = fileinput.files
+	var formdata = new FormData();
+
+	for (let i = 0; i < files.length; i++) 
+	{
+		console.log(files.length);
+        formdata.append('imgfile', files[i], files[i].name)
+    }
+	$.ajax({
+		url:'uploadimg',
+		data:formdata,
+		type:'post',
+		cache: false,
+        contentType: false, //用from不可缺参数
+        processData: false, //用from不可缺参数
+		success:function(data){
+			cb(data)
+		}
+	});
+}
+
+
+
+</script>
+</body>
+
+</html>

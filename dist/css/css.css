@@ -1,0 +1,108 @@
+.wide_radius{
+	border-radius: 3px;
+}
+.wide_F_size12{font-size: 12px;}
+.wide_D_inline_block{display: inline-block;}
+.wide_F_float_left{float: left;}
+.wide_F_float_right{float: right;}
+.wide_loding{  position: fixed; top: 50%; left: 50%;z-index: 12; transform: translate(-50%,-50%);}
+.wide_block_w100{display: block; width: 100%;}
+.wide_D_flex{display: -webkit-box; } 
+.wide_D_flex_1{-webkit-box-flex:1; }
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.wide_{}
+.fontF_backG{
+	color: #fff;
+    background: #03c087;
+}
+.wide_dialog_shade{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	background: rgba(0,0,0,0.5);
+}
+.wide_dialog_A{
+    position: fixed;
+}
+.wide_dialog_close{
+	width: 40px;
+	height: 41px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.wide_dialog_wrappy{
+	position: fixed;
+	top: 60px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 11;
+}
+.wide_dialog_img_wrappy{
+    position: fixed;
+    z-index: 11;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 93%;
+}
+.wide_dialog_img_wrappy img{
+    display: block;
+    width: 100%;
+}
+
+.cicle {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.cicle:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /*使用border-box盒模型，令宽高包括了content、padding和border，使得圆环能完整出现*/
+    box-sizing: border-box;
+    border: 4px solid #ff5aa6;
+    border-radius: 50%;   /*令其border为圆环*/
+    border-top: 4px solid transparent;    /* 有1/4圆为透明 */
+    animation: cicle-rotate 2s infinite linear;
+}
+
+@keyframes cicle-rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+    50% {
+        transform: rotate(-180deg)
+    }
+    100% {
+        transform: rotate(-360deg)
+    }
+}
+
+
+
+.fadeshow-enter-active, .fadeshow-leave-active {
+  transition: opacity .1s;
+}
+.fadeshow-enter, .fadeshow-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
